@@ -1,0 +1,94 @@
+<!-- Jumbotron -->
+<div class="jumbotron">
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h1 class="header center orange-text">Forest Fire Prevention</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">Predict the probability of Forest-Fire Occurence
+        <br>
+        </h5>
+      </div>
+
+              <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <div class="input-field col s4">
+            <label for="first_name"><b>Temperature</b></label>
+            <br>
+          <input placeholder="Temperature in Celsius" name="Temperature" id="search1" type="text" class="validate">
+        </div>
+        <div class="input-field col s4">
+
+          <label for="last_name"><b>Oxygen </b></label>
+            <br>
+          <input id="search2" name="Oxygen" placeholder="Oxygen content in ppm"  type="text" class="validate">
+
+        </div>
+
+        <div class="input-field col s4">
+            <label for="_name"><b>Humidity</b></label>
+            <br>
+          <input id="search3" name="Humidity" placeholder="Humidity %" type="text" class="validate">
+
+        </div>
+
+      </div>
+
+      <div class="row center">
+
+          <button id="predictbutton" class="btn-large waves-effect waves-light orange">Predict Probability</button>
+      </div>
+    </div>
+      </div>
+
+     
+
+    </div>
+  </div>
+
+<p id="message-1"></p>
+
+    <br><br>
+  </div>
+  </div>
+
+
+  <!--  Scripts-->
+  {{!-- <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script> --}}
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+  {{!-- <script src=".js/materialize.js"></script>
+  <script src="js/init.js"></script> --}}
+  <script type="text/javascript">
+const button = document.getElementById('predictbutton');
+button.addEventListener('click', function(e) {
+  console.log('button was clicked');
+  
+    var temperature = document.getElementById('search1').value;
+    var oxygen = document.getElementById('search2').value;
+    var humidity =  document.getElementById('search3').value
+  
+    $.ajax({
+        type:"GET",
+        url: "/predict",
+        dataType: "json",
+        success: function (msg) {
+            if (msg.length > 0) {
+                var m = document.getElementById('message-1');
+                m.innerHTML ="";
+                m.innerText = msg[0];
+            } else {
+                alert("Invalid User !");
+            }
+        },
+        data:{"temperature":temperature,"oxygen":oxygen,"humidity":humidity}
+    });
+});
+
+function checkEmptyString(val)
+{
+    return (val == undefined || val == null || val.trim().length == 0);
+}
+  </script>
+  
+</div>
